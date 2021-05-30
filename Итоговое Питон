@@ -1,0 +1,49 @@
+Калькулятор
+s=0
+s1=0
+while True:
+    try:
+        num1 = float(input("Первое число: "))
+        num2 = float(input("Второе число: "))
+        operator = input("Ввеидет оператор: + ; - ; / ; * ; sqrt ; ^ ")
+        while True:
+            try:
+                operator == "+" and operator == "-" and operator == "*" and operator == "/" and operator == "sqrt" and operator == "^"
+                if operator == "+":
+                    s = num1+num2
+                    input(s)
+                if operator == "-":
+                    s = num1-num2
+                    input(s)
+                if operator == "/":
+                     s = num1/num2
+                     input(s)
+                if operator == "*":
+                      s = num1*num2
+                      input(s)
+                if operator == "sqrt":
+                       s = num1**0.5
+                       s1 = num2**0.5
+                       input(s)
+                       input(s1)
+                if operator == "^":
+                       s = num1**num2
+                       input(s)
+            except Exception as r:
+                print("Неверный оператор")
+            break
+    except Exception as e:
+            print('Введите заново')
+Детектор Палиндрома
+def reverse(s): 
+    return s[::-1] 
+  
+def is_palindrome(s): 
+    rev = reverse(s) 
+    if (s == rev): 
+        return print("True")
+    return print("False")
+s = input()
+ans = is_palindrome(s)
+
+print()
