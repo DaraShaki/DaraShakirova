@@ -1,4 +1,4 @@
-Калькулятор
+Задание 1. Калькулятор
 s=0
 s1=0
 while True:
@@ -34,7 +34,7 @@ while True:
             break
     except Exception as e:
             print('Введите заново')
-Детектор Палиндрома
+Задание 2. Детектор Палиндрома
 def reverse(s): 
     return s[::-1] 
   
