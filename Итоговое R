@@ -1,0 +1,75 @@
+# Итоговое задание 
+# подключимся к библиотеке 
+library(ggplot2)
+library(scales)
+
+# загружаем датасет
+data <- read.csv(choose.files(), sep=",") 
+# формулировка гипотезы: 
+# 1) оценки по математике (math`s score) будут лучше у юношей, чем у девушек.
+# 2) письменные оценки (writing score) связаны с оценками по чтению (reading score).
+
+# визуализируем переменные: writing score, reading score, math`s score, gender
+
+# gender: 
+ggplot(data, aes(x="", y=gender, fill=gender)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) 
+length(data$gender[data$gender=="male"]) # 482 male
+length(data$gender[data$gender=="female"]) #  518 female
+
+# расчитала меры центральной тенденции для колличественных переменных 
+
+# writing score
+summary(data$writing.score) 
+mean(data$writing.score)
+sd(data$writing.score) 
+median(data$writing.score)
+# создадала (стырила из интернета) функцию для моды
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+getmode(data$writing.score)
+boxplot(data$writing.score)
+
+# reading score
+summary(data$reading.score) 
+mean(data$reading.score)
+sd(data$reading.score) 
+median(data$reading.score)
+getmode(data$reading.score)
+boxplot(data$reading.score)
+
+# math score 
+summary(data$math.score) 
+mean(data$math.score)
+sd(data$math.score) 
+median(data$math.score)
+getmode(data$math.score)
+boxplot(data$math.score)
+
+# проверим наши гипотезы: 
+# 1) матемеатические оценки (math`s score) будут лучше у юношей, чем у девушек.
+# сравним оценки у девушек и юношей с помощью t.test
+# сначала проверила, что переменная распределена нормально
+# построим гистограмму 
+hist(data$math.score)
+shapiro.test(data$math.score) # распределение не нормально, используем тест Манна-Уитни 
+wilcox.test(data$math.score~data$gender) # оценки девушек статистически значимо отличаются от оценок юношей
+# визуализируем результат 
+ggplot(data, aes(gender, math.score))+
+  geom_boxplot()
+# наша гипотиза подтвердилась: юноши имеют чуть большие оценки по математике 
+
+# 2 гипотеза: письменные оценки (writing score) связаны с оценками по чтению (reading score).
+# построим корреляцию и проверим 
+# проверим нормальность распределения переменных
+shapiro.test(data$reading.score) # распределение не нормальное
+shapiro.test(data$writing.score) # распределение не нормальное
+# воспользуемся непараметрическим критерием Спирмена
+cor.test(data$reading.score, data$writing.score, method = "spearman")
+# оценки статистически значимо связаны сильной корреляцией 
+# визуализируем 
+ggplot(data, aes(x=data$reading.score, y=data$writing.score))+
+  geom_point()
