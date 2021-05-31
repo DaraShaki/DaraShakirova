@@ -34,16 +34,3 @@ while True:
             break
     except Exception as e:
             print('Введите заново')
-Задание 2. Детектор Палиндрома
-def reverse(s): 
-    return s[::-1] 
-  
-def is_palindrome(s): 
-    rev = reverse(s) 
-    if (s == rev): 
-        return print("True")
-    return print("False")
-s = input()
-ans = is_palindrome(s)
-
-print()
